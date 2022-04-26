@@ -64,7 +64,7 @@ prefix argument.  MODE is either 'term or 'shell."
   (cl-case mode
     ('term
      (setq name-prefix "terminal")
-     (call-interactively 'multi-term))
+     (call-interactively 'multi-vterm))
     ('shell
      (setq name-prefix "shell")
      (call-interactively 'shell)))
