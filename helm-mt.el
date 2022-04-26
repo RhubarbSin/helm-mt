@@ -46,10 +46,12 @@
 
 (defun helm-mt/terminal-buffers ()
   "Filter for buffers that are terminals only.
-Includes buffers managed by `multi-term' (excludes dedicated term
-buffers) and buffers in `shell-mode'."
+Includes buffers managed by `multi-term' or
+`multi-vterm' (excludes dedicated term buffers) and buffers in
+`shell-mode'."
   (cl-loop for buf in (buffer-list)
            if (or (member buf multi-term-buffer-list)
+                  (member buf multi-vterm-buffer-list)
                   (eq (buffer-local-value 'major-mode buf) 'shell-mode))
            collect (buffer-name buf)))
 
