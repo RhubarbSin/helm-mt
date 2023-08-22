@@ -51,7 +51,8 @@ Includes buffers managed by `multi-term' or
 `shell-mode'."
   (cl-loop for buf in (buffer-list)
            if (or (member buf multi-term-buffer-list)
-                  (member buf multi-vterm-buffer-list)
+                  (if (featurep 'multi-vterm)
+                      (member buf multi-vterm-buffer-list))
                   (eq (buffer-local-value 'major-mode buf) 'shell-mode))
            collect (buffer-name buf)))
 
@@ -66,7 +67,9 @@ prefix argument.  MODE is either 'term or 'shell."
   (cl-case mode
     ('term
      (setq name-prefix "terminal")
-     (call-interactively 'multi-vterm))
+     (if (featurep 'multi-vterm)
+         (call-interactively 'multi-vterm)
+       (call-interactively 'multi-term)))
     ('shell
      (setq name-prefix "shell")
      (call-interactively 'shell)))
